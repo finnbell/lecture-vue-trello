@@ -15,7 +15,7 @@
     "vue": "^2.5.11",
     "vue-router": "^3.0.1"
   },
-  "browserslist": [
+  "browserslist": [ 
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
