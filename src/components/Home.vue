@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       loading: false,
+      boards: [],
       error: ''
     }
   },
@@ -45,6 +46,7 @@ export default {
             el.style.backgroundColor = el.dataset.bgcolor
       })
   },
+
   methods: {
         ...mapMutations([
             'SET_IS_ADD_BOARD'
@@ -61,9 +63,8 @@ export default {
                 })        
         },
 
-        onAddBoard(title) {            
-            board.create(title)
-                .then(  data => this.fetchData() )
+        onAddBoard() {
+            this.fetchData() 
         }
     } 
  
