@@ -4,7 +4,7 @@
       <h2>
         Create new board
         <a href="" class="modal-default-button" 
-          @click.prevent="SET_IS_ADD_BOARD">&times;</a>
+          @click.prevent="SET_IS_ADD_BOARD(false)">&times;</a>
       </h2>
     </div>
     <div slot="body">

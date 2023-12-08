@@ -20,17 +20,7 @@ export default {
             loading: false
         }
     },
-    watch: {
-      '$route': {
-        //this.cid = this.$route.params.cid
-        handler: 'fetchData',
-        immedate: true
-        //this.fetchData()
-      }
-    },
-    created() {
-        this.fetchData()
-    },
+
     methods: {
       fetchData() { 
         this.loading = true        

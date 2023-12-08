@@ -14,9 +14,11 @@ export default {
             loading: false
         }
     },
-    created() {
-        this.fetchData()
-        
+    watch: {
+      '$route': {
+        handler: 'fetchData',
+        immedate: true
+      }
     },
     methods: {
         fetchData() {

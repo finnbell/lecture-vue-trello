@@ -37,17 +37,19 @@ export default {
       isAddBoard: 'isAddBoard'
     })
   },
-    updated() {
+  created() {
+    this.fetchData()
+  },
+  updated() {
         this.$refs.boardItem.forEach(el => {
             el.style.backgroundColor = el.dataset.bgcolor
-        })
-    },
-    methods: {
-
+      })
+  },
+  methods: {
         ...mapMutations([
             'SET_IS_ADD_BOARD'
         ]),
-        
+
         fetchData() {
             this.loading = true
             board.fetch()
@@ -61,7 +63,7 @@ export default {
 
         onAddBoard(title) {            
             board.create(title)
-                .then(  () => this.fetchData() )
+                .then(  data => this.fetchData() )
         }
     } 
  
