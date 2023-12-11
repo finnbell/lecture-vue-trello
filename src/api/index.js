@@ -15,7 +15,7 @@ const request = (method, url, data) => {
     }).then(result => result.data)
         .catch( result => {
             const {status} = result.response
-            if( status === UNAUTHORIZED) 
+            if( status === UNAUTHORIZED) onUnauthorized()
                 throw result.response
         })
 }
@@ -23,9 +23,6 @@ const request = (method, url, data) => {
 export const setAuthInHeader = token => {
     axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
 }
-
-const {token} = localStorage
-if (token) setAuthInHeader(token)
 
 export const board = {
     fetch() {
