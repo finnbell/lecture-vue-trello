@@ -1,5 +1,5 @@
 <template>
-   <Modal>
+  <Modal>
     <div slot="header">
       <h2>
         Create new board
@@ -25,7 +25,6 @@
 import {mapMutations, mapActions} from 'vuex'
 import Modal from './Modal.vue'
 
-
 export default {
   components: {
     Modal
@@ -45,20 +44,18 @@ export default {
     this.$refs.input.focus()
   },
   methods: {
-
     ...mapMutations([
       'SET_IS_ADD_BOARD'
     ]),
-    
-    ...mapActions( [
+    ...mapActions([
       'ADD_BOARD',
-      'FETCH_BOARDS',
+      'FETCH_BOARDS'
     ]),
-
     addBoard() {
-        this.SET_IS_ADD_BOARD(false)               
-        this.ADD_BOARD({title: this.input})
+      this.ADD_BOARD({title: this.input})
         .then(({id}) => this.$router.push(`/b/${id}`))
+        .catch(err => console.error(err))
+        .finally(() => this.SET_IS_ADD_BOARD(false))
     }
   }
 }

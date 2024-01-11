@@ -2,45 +2,53 @@
   <div class="add-card">
     <form @submit.prevent="onSubmit">
       <input class="form-control" type="text" v-model="inputTitle" ref="inputText">
-      <button class="btn btn-success" type="submit" :disabled="invalidInput">Add Card</button>
-      <a class="cancel-add-btn" href="" @click.prevent="emit('close')">&times;</a>
+      <button class="btn btn-success" type="submit" :disabled="invalidInput">
+        Add Card</button>
+      <a class="cancel-add-btn" href="" @click.prevent="$emit('close')">&times;</a>
     </form>
   </div>
 </template>
+
   
-  <script>
-  import { mapState, mapMutations, mapActions } from 'vuex'
-  export default {    
-    data() {
-      return {
-        inputTitle: ''
-      }
-    },
-    computed: {
-      invalidInput() {
-        return !this.inputTitle.trim()
-      }
-    },
-    mounted() {
-      this.$refs.inputText.focus()
-      this.setupClickOutside(this.$el)
-    },
-    methods: {
-      onSubmit() {
-        console.log('on submit@')
-      },
+<script>
+import {mapActions} from 'vuex'
 
-      setupClickOutside(el) {
-        document.querySelector('body').addEventListener('click', e=> {
-          if( el.contains(e.target)) return 
-          this.$emit('close')
-        })
-      }
+export default {
+  props: ['listId'],
+  data() {
+    return {
+      inputTitle: ''
+    }
+  },
+  computed: {
+    invalidInput() {
+      return !this.inputTitle.trim()
+    }
+  },
+  mounted() {
+    this.$refs.inputText.focus()
+    this.setupClickOutside(this.$el)
+  },
+  methods: {
+    ...mapActions([
+      'ADD_CARD'
+    ]),
+    onSubmit() {
+      if (this.invalidInput) return 
+      const {inputTitle, listId} = this
+      this.ADD_CARD({title: inputTitle, listId})
+        .finally(_=> this.inputTitle = '')
 
     },
+    setupClickOutside(el) {
+      document.querySelector('body').addEventListener('click', e => {
+        if (el.contains(e.target)) return 
+        this.$emit('close')
+      })
+    }
   }
-  </script>
-
+}
+</script>
 
 <style>
 .add-card {

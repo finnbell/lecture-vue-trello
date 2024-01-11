@@ -12,23 +12,23 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
+
 export default {
-
-    computed: {
-        ...mapGetters([
-          'LOGOUT'
-        ])
-    },
-    methods: {
-        logout() {
-            this.logout()
-            this.$router.push('/login')
-        }
-
-
+  computed: {
+    ...mapGetters([
+      'isAuth'
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'LOGOUT'
+    ]),
+    logout() {
+      this.LOGOUT()
+      this.$router.push('/login')
     }
-
+  }
 }
 </script>
 
