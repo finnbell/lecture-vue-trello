@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 import List from './List.vue'
 import dragger from '../utils/dragger'
 
@@ -29,7 +29,7 @@ export default {
     return {
       bid: 0,
       loading: false,
-      cDragger: null,
+      cDragger: null
     }
   },
   computed: {
@@ -38,44 +38,47 @@ export default {
     })
   },
   created() {
-    this.fetchData()
+    this.fetchData().then(() => {
+      this.SET_THEME(this.board.bgColor)
+    })
   },
   updated() {
     this.setCardDragabble()
-    
   },
   methods: {
+    ...mapMutations([
+      'SET_THEME'
+    ]),
     ...mapActions([
       'FETCH_BOARD',
       'UPDATE_CARD'
     ]),
     fetchData() {
       this.loading = true
-      this.FETCH_BOARD({id: this.$route.params.bid})
+      return this.FETCH_BOARD({id: this.$route.params.bid})
         .then(() => this.loading = false)
     },
     setCardDragabble() {
-      if( this.cDragger) this.cDragger.destroy()
-
+      if (this.cDragger) this.cDragger.destroy()
+    
       this.cDragger = dragger.init(Array.from(this.$el.querySelectorAll('.card-list')))
       this.cDragger.on('drop', (el, wrapper, target, silblings) => {
         const targetCard = {
-          id: el.dataset.cardId *1,
+          id: el.dataset.cardId * 1, 
           listId: wrapper.dataset.listId * 1,
           pos: 65535,
         }
-
-      const {prev,next} = dragger.sibling( {
-        el,
-        wrapper,
-        candidates : Array.from(wrapper.querySelectorAll('.card-item')), 
-        type : 'card'
-      })
-
-      if (!prev && next) targetCard.pos = next.pos / 2
-      else if (!next && prev) targetCard.pos = prev.pos * 2
-      else if (next && prev) targetCard.pos = (prev.pos + next.pos) / 2
-      this.UPDATE_CARD(targetCard)
+        const {prev, next} = dragger.sibling({
+          el, 
+          wrapper, 
+          candidates: Array.from(wrapper.querySelectorAll('.card-item')), 
+          type: 'card'
+        })
+        
+        if (!prev && next) targetCard.pos = next.pos / 2
+        else if (!next && prev) targetCard.pos = prev.pos * 2
+        else if (next && prev) targetCard.pos = (prev.pos + next.pos) / 2
+        this.UPDATE_CARD(targetCard)
       })
     }
   }
