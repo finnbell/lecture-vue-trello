@@ -13,24 +13,22 @@
           v-model="password" placeholder="123123" />
       </div>
       <button  class="btn" :class="{'btn-success': !invalidForm}" type="submit" 
-                :disabled="invalidForm">Log In</button>
+        :disabled="invalidForm">Log In</button>
     </form>
     <p class="error" v-if="error">{{error}}</p>
   </div>
 </template>
+
 <script>
-
-import { mapActions } from 'vuex'
-
-
+import {mapActions} from 'vuex'
 
 export default {
-    data() {
+  data() {
     return {
       email: '',
       password: '',
       error: '',
-      rPath: '',
+      rPath: ''
     }
   },
   computed: {
@@ -42,15 +40,13 @@ export default {
     this.rPath = this.$route.query.rPath || '/'
   },
   methods: {
-
     ...mapActions([
       'LOGIN'
     ]),
-
     onSubmit() {
-      this.LOGIN({email:this.email, password: this.password})
-        .then(data => {          
-           this.$router.push(this.rPath)
+      this.LOGIN({email: this.email, password: this.password})
+        .then(data => {
+          this.$router.push(this.rPath)
         })
         .catch(err => {
           this.error = err.data.error
