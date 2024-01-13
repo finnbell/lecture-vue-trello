@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn
+  /usr/local/bin/node /usr/local/bin/yarn add dragula
 
 PATH: 
   /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/VMware Fusion.app/Contents/Public:/opt/homebrew/bin:/opt/homebrew/sbin:/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/bin:/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home/bin:/usr/local/bin:/usr/bin
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/finn/Workspace/lecture-vue-trello/node_modules/array-flatten/README.md'
+  Error: EACCES: permission denied, copyfile '/Users/finn/Library/Caches/Yarn/v6/npm-array-flatten-1.1.1-integrity/node_modules/array-flatten/README.md' -> '/Users/finn/Workspace/lecture-vue-trello/node_modules/array-flatten/README.md'
 
 npm manifest: 
   {
