@@ -41,7 +41,7 @@
         'DELETE_BOARD',
         'UPDATE_BOARD',
       ]),
-      onClose() {
+      onClose() { 
         this.SET_IS_SHOW_BOARD_SETTINGS(false)
       },
       onDeleteBoard() {
@@ -50,7 +50,7 @@
       .then(_=> this.SET_IS_SHOW_BOARD_SETTINGS(false))
       .then(_=> this.$router.push('/'))
       },
-      
+
       onChangeTheme(el) {
         const id = this.board.id
         const bgColor = el.target.dataset.value
