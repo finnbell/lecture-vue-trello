@@ -12,11 +12,14 @@ const actions = {
     return api.board.fetch().then(data => {
       commit('SET_BOARDS', data.list)
     })
-  },
+  }, 
   FETCH_BOARD ({commit}, {id}) {
     return api.board.fetch(id).then(data => {
       commit('SET_BOARD', data.item)
     })
+  },
+  DELETE_BOARD(_, {id}) {
+    return api.board.destroy(id)
   },
 
   ADD_CARD({dispatch, state}, {title, listId, pos}) {
