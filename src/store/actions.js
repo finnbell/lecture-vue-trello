@@ -22,10 +22,14 @@ const actions = {
     return api.board.destroy(id)
   },
 
-  ADD_LIST( {dispatch, state}, {title, boardId, pos}) {
-    return api.list.create({gtitle, boardId, pos})
+  ADD_LIST( {state, dispatch}, {title, boardId, pos}) {
+    return api.list.create({title, pos, boardId })
       .then( _ => dispatch('FETCH_BOARD', {id: state.board.id}))
   }, 
+  UPDATE_LIST( {dispatch,state},{id, pos, title}) {
+    return api.list.update(id, {pos,title})
+    .then( _ => dispatch('FETCH_BOARD', {id: state.board.id}))
+  },
 
   UPDATE_BOARD( {dispatch, state}, {id, title, bgColor}) {
     return api.board.update(id, {title, bgColor})

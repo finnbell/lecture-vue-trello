@@ -14,8 +14,8 @@ const request = (method, url, data) => {
         data
     }).then(result => result.data)
         .catch( result => {
-            const {status} = result.response
-            if( status === UNAUTHORIZED) onUnauthorized()
+           const {status} = result.response
+           if( status === UNAUTHORIZED) onUnauthorized()
                 throw result.response
         })
 }
@@ -42,7 +42,10 @@ export const board = {
 
 export const list = {
    create(payload) {
-    return request('post', 'lists', payload )
+    return request('post', '/lists', payload )
+   },
+   update(id, payload) {
+    return request('put', `/lists/${id}`, payload)
    }
 }
 
