@@ -15,7 +15,7 @@ const request = (method, url, data) => {
     }).then(result => result.data)
         .catch( result => {
            const {status} = result.response
-           if( status === UNAUTHORIZED) onUnauthorized()
+           if( status === UNAUTHORIZED) onUnautorized()
                 throw result.response
         })
 }
@@ -46,6 +46,9 @@ export const list = {
    },
    update(id, payload) {
     return request('put', `/lists/${id}`, payload)
+   },
+   destroy(id) {
+    return request('delete', `/lists/${id}`)
    }
 }
 

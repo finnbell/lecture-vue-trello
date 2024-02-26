@@ -1,9 +1,10 @@
 <template>
-  <div class="list">
+  <div class="list" :data-list-id="data.id" :data-list-pos="data.pos">
     <div class="list-header">
       <input v-if="isEditTitle" class="form-control input-title" type="text" 
       ref="inputTitle" v-model="inputTitle" @blur="onBlurTitle" @keyup.enter="onSubmitTitle ">
       <div v-else class="list-header-title" @click="onClickTitle" >{{data.title}}</div>
+      <a class="delete-list-btn" href="" @click.prevent="onDeleteList">&times;</a>
     </div>
 
     <div class="card-list" :data-list-id="data.id">
@@ -41,26 +42,31 @@ export default {
   },
   methods: {
     ...mapActions([
-      'UPDATE_LIST'
+      'UPDATE_LIST',
+      'DELETE_LIST'
     ]),
     onClickTitle() {
       this.isEditTitle = true
       this.$nextTick( _ => this.$refs.inputTitle.focus() )
     },
+    onSubmitTitle() {
+      this.$refs.inputTitle.blur()
+    },
     onBlurTitle() {
       this.isEditTitle = false
-    },
-    onSubmitTitle() {
-      this.onBlurTitle() 
 
-      this.inputTitle = this.inputTitle.trim() 
-      if(!this.inputTitle) return 
+      this.inputTitle = this.inputTitle.trim()
+      if (!this.inputTitle) return 
 
       const id = this.data.id
       const title = this.inputTitle
-      if( title === this.data.title) return 
-
-      this.UPDATE_LIST({id, title})
+      if (title === this.data.title) return 
+      
+      this.UPDATE_LIST({ id, title })
+    },
+    onDeleteList() {
+      if( !window.confirm(`Delete ${this.data.title} list?`)) return 
+      this.DELETE_LIST({id: this.data.id})
     }
   }
 }
